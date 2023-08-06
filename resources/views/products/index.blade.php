@@ -3,11 +3,11 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Products</h2>
+                <h2>Questions</h2>
             </div>
             <div class="pull-right">
                 @can('product-create')
-                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Product</a>
+                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Question</a>
                 @endcan
             </div>
         </div>
@@ -20,8 +20,8 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Name</th>
-            <th>Details</th>
+            <th>Question</th>
+            <th>Question Details</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($products as $product)
@@ -29,6 +29,7 @@
             <td>{{ ++$i }}</td>
             <td>{{ $product->name }}</td>
             <td>{{ $product->detail }}</td>
+            <p class="text-muted">{{ $product->category ? $product->category->name : 'Uncategorized' }}</p>
             <td>
                 <form action="{{ route('products.destroy',$product->id) }}" method="POST">
                     <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>

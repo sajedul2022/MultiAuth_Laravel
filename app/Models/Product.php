@@ -15,7 +15,15 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'detail'
+        'category_id', 'name', 'detail'
     ];
+
+    public function user() {
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function category() {
+        return $this->belongsTo('App\Models\Category');
+    }
 
 }

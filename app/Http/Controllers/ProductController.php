@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -26,8 +28,10 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $categories = Category::with('children')->whereNull('parent_id')->get();
+
         $products = Product::latest()->paginate(5);
-        return view('products.index',compact('products'))
+        return view('products.index',compact('products', 'categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -38,7 +42,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        // $categories = Category::with('children')->whereNull('parent_id')->get();
+        // return view('post.create')->withCategories($categories);
+        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
+        return view('products.create', compact('categories'));
+
     }
 
     /**
@@ -49,15 +57,29 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        // request()->validate([
+        //     'name' => 'required',
+        //     'detail' => 'required',
+        //     'category_id'   => 'required|numeric',
+        // ]);
+
+        // $validatedData['user_id'] = Auth::id();
+
+        // Product::create($request->all());
+
+
+        $validatedData = $this->validate($request, [
             'name' => 'required',
             'detail' => 'required',
+            'category_id'   => 'required|numeric',
         ]);
 
-        Product::create($request->all());
+        $validatedData['user_id'] = Auth::id();
+
+        $Product = Product::create($validatedData);
 
         return redirect()->route('products.index')
-                        ->with('success','Product created successfully.');
+                        ->with('success','Question created successfully.');
     }
 
     /**
@@ -79,7 +101,14 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit',compact('product'));
+
+        // if ($product->user_id != Auth::id()) {
+        //     return redirect()->back();
+        //   }
+
+        $categories = Category::with('children')->whereNull('parent_id')->get();
+
+        return view('products.edit',compact('product', 'categories'));
     }
 
     /**
@@ -99,7 +128,7 @@ class ProductController extends Controller
         $product->update($request->all());
 
         return redirect()->route('products.index')
-                        ->with('success','Product updated successfully');
+                        ->with('success','Question updated successfully');
     }
 
     /**
@@ -113,6 +142,6 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')
-                        ->with('success','Product deleted successfully');
+                        ->with('success','Question deleted successfully');
     }
 }
