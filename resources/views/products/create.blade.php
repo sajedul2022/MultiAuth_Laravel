@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Add New Question</h2>
+                <h2>Add New </h2>
             </div>
             <div class="">
                 <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
@@ -27,7 +27,7 @@
         <div class="row">
 
             <div class="form-group">
-                <label for="category_id">ICT Control </label>
+                <label for="category_id"> Category </label>
                 <select class="form-control" name="category_id" required>
 
                     <option value="" disabled selected>Select</option>
@@ -43,55 +43,29 @@
                             @endif
                         @endforeach
                     @endif
-
-                    {{-- <option value="">Select a Category</option>
-
-                    @foreach ($categories as $category)
-                        <option value="{{ $category->id }}" {{ $category->id === old('category_id') ? 'selected' : '' }}>{{ $category->name }}</option>
-                        @if ($category->children)
-                            @foreach ($category->children as $child)
-                                <option value="{{ $child->id }}" {{ $child->id === old('category_id') ? 'selected' : '' }}>&nbsp;&nbsp;{{ $child->name }}</option>
-                            @endforeach
-                        @endif
-                    @endforeach --}}
                 </select>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Question:</strong>
+                    <strong>Product Name:</strong>
                     <input type="text" name="name" class="form-control" placeholder="Name">
                 </div>
             </div>
 
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Question Detail:</strong>
+                    <strong> Detail:</strong>
                     <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
                 </div>
             </div>
 
-          
 
 
-            <div class="modal-body">
-
-                
-                <div class="form-group" id="a_cf-tf" >
-                    <label for="">Correct choice</label>
-                    <select id="c-tf" class="form-control" name="c-tf">
-                        <option value="1">True</option>
-                        <option value="0">False</option>
-                    </select>
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center ">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary form-control"> Add </button>
                 </div>
-
-
-                {{-- <input type="hidden" id="a_qid" value="{{ $q->questionnaire_id }}"> --}}
-
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Add Question</button>
             </div>
 
         </div>

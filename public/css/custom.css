@@ -1,0 +1,83 @@
+ /* paginate */
+
+ svg.w-5.h-5 {
+    display: none;
+}
+.hidden.sm\:flex-1.sm\:flex.sm\:items-center.sm\:justify-between {
+    display: none;
+}
+body{
+  font-family: 'Nunito';
+}
+header{
+ background-image: url("../images/7.jpg");
+ background-repeat: no-repeat;
+ background-size: cover;
+ background-attachment: fixed;
+ color: #fff;
+ padding: 42px 0px;
+  }
+  .header_title h1{
+    font-size: 35px;
+    padding: 8px 0px;
+    font-family: 'Nunito';
+    font-weight: 800;
+  }
+  .header_title p{
+   font-size: 15px;
+   font-family: 'Nunito';
+   margin: 0;
+  }
+  .loginauthentication{
+  margin-top: -50px;
+
+  }
+  .loginauthentication a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px 4px;
+  }
+
+  .part1 {
+    min-height: 216px;
+    box-shadow: 0 1px 5px 5px #8d4a39;
+    padding: 21px 0px;
+    border-radius: 19px;
+    text-align: center;
+    background-color: #120d0cd1;
+    color: aliceblue;
+}
+
+  .part1 i{
+  padding: 20px 0px;
+  font-size:35px;
+
+  }
+  .contactinfo{
+    margin-top: 180px;
+  }
+  .registrationbg{
+    background-color: #000000;
+  }
+  footer{
+    background-color: #111010;
+    padding: 20px 0px;
+    text-align: center;
+    color: #fff;
+  }
+  footer p a {
+    color: #ff0000;
+    text-decoration: none;
+}
+
+
+/* login  */
+
+.form-bg-image {
+    /* background-image: url('/assets/img/illustrations/signin.svg'); */
+    background-image: url('/assets/img/illustrations/1.jpg');
+    background-size: cover !important;
+    background-repeat: repeat !important;
+}

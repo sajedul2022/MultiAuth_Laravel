@@ -16,10 +16,10 @@ class ProductController extends Controller
      */
     function __construct()
     {
-         $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:product-create', ['only' => ['create','store']]);
-         $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:product-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:product-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:product-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -31,7 +31,7 @@ class ProductController extends Controller
         $categories = Category::with('children')->whereNull('parent_id')->get();
 
         $products = Product::latest()->paginate(5);
-        return view('products.index',compact('products', 'categories'))
+        return view('products.index', compact('products', 'categories'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -42,11 +42,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // $categories = Category::with('children')->whereNull('parent_id')->get();
-        // return view('post.create')->withCategories($categories);
+
         $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
         return view('products.create', compact('categories'));
-
     }
 
     /**
@@ -57,16 +55,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // request()->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        //     'category_id'   => 'required|numeric',
-        // ]);
-
-        // $validatedData['user_id'] = Auth::id();
-
-        // Product::create($request->all());
-
 
         $validatedData = $this->validate($request, [
             'name' => 'required',
@@ -79,7 +67,23 @@ class ProductController extends Controller
         $Product = Product::create($validatedData);
 
         return redirect()->route('products.index')
-                        ->with('success','Question created successfully.');
+            ->with('success', 'Question created successfully.');
+
+        // $request->validate([
+        //     'category_id' => 'required',
+        //     'name' => 'required',
+        //     'detail' => 'required',
+        //     'question_text' => 'required',
+        //     // 'image' => 'required|image|mimes:jpeg,png,jpg,giv,svg|max:2048',
+        // ]);
+
+        // $input = $request->all();
+        // Question::create($input);
+
+        // return redirect()->route('questions.index')->with([
+        //     'message' => 'successfully created !',
+        //     'alert-type' => 'success'
+        // ]);
     }
 
     /**
@@ -90,7 +94,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show',compact('product'));
+        return view('products.show', compact('product'));
     }
 
     /**
@@ -108,7 +112,7 @@ class ProductController extends Controller
 
         $categories = Category::with('children')->whereNull('parent_id')->get();
 
-        return view('products.edit',compact('product', 'categories'));
+        return view('products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -120,7 +124,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-         request()->validate([
+        request()->validate([
             'name' => 'required',
             'detail' => 'required',
         ]);
@@ -128,7 +132,7 @@ class ProductController extends Controller
         $product->update($request->all());
 
         return redirect()->route('products.index')
-                        ->with('success','Question updated successfully');
+            ->with('success', 'Question updated successfully');
     }
 
     /**
@@ -142,6 +146,6 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')
-                        ->with('success','Question deleted successfully');
+            ->with('success', 'Question deleted successfully');
     }
 }

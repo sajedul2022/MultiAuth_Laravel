@@ -1,0 +1,70 @@
+List: 
+
+(1)	User Profile
+(2)	User Create as your need
+(3)	Sales Details
+(4)	Purchase Details
+(5)	Report 
+(6)	Product Details
+(7)	Customer Information
+(8)	Supplier Information
+
+
+Details Features of Modules is as Follows: 
+(1)	Profile: 
+•	User base Profile Creation 
+•	Edit Profile
+•	Manage Profile
+
+(2)	User: 
+
+•	User List
+•	Manage User
+•	User base Operation
+
+(3)	Sales: 
+•	New Sale
+•	Purchaser Details 
+•	Sales Invoice
+•	Sales Report
+•	Broker details
+
+(4)	Purchase:
+•	New Purchase
+•	Saler Details
+•	Purchase Invoice
+•	Purchase Report
+•	Broker details
+
+(5)	Report: 
+•	Purchase Report
+•	Sales Report
+•	Stock Report
+•	Low Stock Report 
+•	Profit & Loss Report
+•	Supplier Due Report
+•	Customer Due Report
+
+(6)	Product (Motor Bike, Mobil, Helmet, Lock): 
+
+•	New Product Entry
+•	Manage Product
+•	Category
+•	Brand / Manufacturer
+•	Model
+•	Color
+•	Chassis Number
+•	Engine Number
+•	Cubic Capacity (CC)
+•	Registration Number & Date
+•	Purchase Date
+
+(7)	Customer: 
+•	New Customer
+•	Manage Customer
+•	Customer Due Report
+
+(8)	Supplier: 
+•	New Supplier
+•	Manage Supplier
+•	Supplier Due Report

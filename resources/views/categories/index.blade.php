@@ -1,34 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-    {{-- @if (Session::has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <h4 class="alert-heading">Success!</h4>
-            <p>{{ Session::get('success') }}</p>
-
-            <button type="button" class="close" data-dismiss="alert aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-
-    @if (Session::has('errors'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <h4 class="alert-heading">Error!</h4>
-            <p>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            </p>
-
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif --}}
-
     @if ($errors->any())
         <div>
             @foreach ($errors->all() as $error)
@@ -57,7 +29,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit ICT Control</h5>
+                        <h5 class="modal-title">Edit Category</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -92,128 +64,8 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3>ICT Control</h3>
+                        <h3>Category</h3>
                     </div>
-                    {{--
-                    <div class="card-body">
-                        <ul class="list-group">
-                            @foreach ($categories as $category)
-                                <li class="list-group-item">
-                                    <div class="d-flex justify-content-between">
-                                        {{ $category->name }}
-
-                                        <div class="button-group d-flex">
-                                            <button type="button" class="btn btn-sm btn-primary mr-1 edit-category"
-                                                data-toggle="modal" data-target="#editCategoryModal"
-                                                data-id="{{ $category->id }}"
-                                                data-name="{{ $category->name }}">Edit
-                                            </button>
-
-                                            <form action="{{ route('category.destroy', $category->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                            </form>
-
-                                            <form action="{{ route('category.destroy', $category->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                            </form>
-
-                                        </div>
-                                    </div>
-
-                                    @if ($category->children)
-                                        <ul class="list-group mt-2">
-                                            @foreach ($category->children as $child)
-                                                <li class="list-group-item">
-                                                    <div class="d-flex justify-content-between">
-                                                        {{ $child->name }}
-
-                                                        <div class="button-group d-flex">
-                                                            <button type="button"
-                                                                class="btn btn-sm btn-primary mr-1 edit-category"
-                                                                data-toggle="modal" data-target="#editCategoryModal"
-                                                                data-id="{{ $child->id }}"
-                                                                data-name="{{ $child->name }}">Edit
-                                                            </button>
-
-                                                            <form action="{{ route('category.destroy', $child->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-
-                                                                <button type="submit"
-                                                                    class="btn btn-sm btn-danger">Delete</button>
-                                                            </form>
-
-                                                            <form action="{{ route('category.destroy', $child->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-
-                                                                <button type="submit"
-                                                                    class="btn btn-sm btn-danger">Delete</button>
-                                                            </form>
-
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    @endif
-
-                                </li>
-                            @endforeach
-
-                            @foreach ($subCategories as $subCategory)
-                                @if ($subCategory->parent)
-                                    <ul class="list-group mt-2">
-                                        @foreach ($subCategory->parent as $par)
-                                            <li class="list-group-item">
-                                                <div class="d-flex justify-content-between">
-                                                    {{ $par->name }}
-
-                                                    <div class="button-group d-flex">
-                                                        <button type="button"
-                                                            class="btn btn-sm btn-primary mr-1 edit-category"
-                                                            data-toggle="modal" data-target="#editCategoryModal"
-                                                            data-id="{{ $child->id }}"
-                                                            data-name="{{ $child->name }}">Edit
-                                                        </button>
-
-                                                        <form action="{{ route('category.destroy', $child->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-danger">Delete</button>
-                                                        </form>
-
-                                                        <form action="{{ route('category.destroy', $par->id) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-danger">Delete</button>
-                                                        </form>
-
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            @endforeach
-
-
-                        </ul>
-                    </div> --}}
 
 
                     <div class="box-body">
@@ -221,7 +73,7 @@
                             <thead>
                                 <tr>
                                     <th>S.No.</th>
-                                    <th>Control Name</th>
+                                    <th>Category Name</th>
                                     <th>Parent Control</th>
                                     <th>Action</th>
                                 </tr>
@@ -244,9 +96,9 @@
                                                 @endif
                                             </td>
 
-                                            {{-- <td>
-                                                <a class="btn btn-primary"
-                                                    href="{{ route('category.edit', $category->id) }}">Edit</a>
+                                            <td>
+                                                {{-- <a class="btn btn-primary"
+                                                    href="{{ route('category.edit', $category->id) }}">Edit</a> --}}
 
                                                 <form action="{{ route('category.destroy', $category->id) }}"
                                                     method="POST">
@@ -256,7 +108,7 @@
                                                         <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                                     </a>
                                                 </form>
-                                            </td> --}}
+                                            </td>
 
                                         </tr>
                                         @if (count($category->subcategory))
@@ -278,7 +130,7 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Create ICT Control</h3>
+                        <h3>Create Category</h3>
                     </div>
 
                     <div class="card-body">
@@ -330,7 +182,7 @@
 
                             <div class="form-group">
                                 <select class="form-control" name="parent_id">
-                                    <option value="">Select Parent ICT Control</option>
+                                    <option value="">Select Parent Category</option>
 
                                     @foreach ($categories as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>

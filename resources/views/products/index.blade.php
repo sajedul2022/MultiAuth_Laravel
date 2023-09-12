@@ -7,7 +7,7 @@
             </div>
             <div class="pull-right">
                 @can('product-create')
-                <a class="btn btn-success" href="{{ route('products.create') }}"> Create New Question</a>
+                <a class="btn btn-success" href="{{ route('products.create') }}">  New Products </a>
                 @endcan
             </div>
         </div>
@@ -20,8 +20,8 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Question</th>
-            <th>Question Details</th>
+            <th>Products</th>
+            <th> Details</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($products as $product)

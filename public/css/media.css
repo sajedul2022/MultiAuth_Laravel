@@ -1,0 +1,74 @@
+
+@media(max-width: 574.98px)and (min-width: 395px)  {
+    .top_menu{
+        font-size: 12px;
+    }
+  /* admin template start */
+  .a_color {
+    font-size: 14px;
+}
+  .table>:not(caption)>*>*  {
+    padding: 0px 0px;
+  }
+  input.btn.btn-danger {
+    margin-top: 10px;
+}
+a.btn.btn-success {
+    margin-top: 10px;
+}
+.edit_button {
+  width: 29px!important;
+  height: 31px;
+  margin-right: 0px;
+}
+
+ }
+
+@media (max-width: 575.98px) { 
+    /* welcome page responsive start */
+    .header_title h1 {
+        font-size: 26px;
+    }
+    .login_registration{
+      text-align: center!important;
+    }
+    .loginauthentication {
+      margin-top: 50px!important;
+  }
+   /* admin template start */
+  .table>:not(caption)>*>*  {
+    padding: 10px 0px;
+  }
+
+  .edit_button {
+    width: 29px;
+    height: 31px;
+    margin-right: 10px;
+  }
+   }
+@media (max-width: 768px){
+    .part1 {
+        min-height: 244px;
+  }
+ /* admin template start */
+ .table>:not(caption)>*>*  {
+    padding:15px 0px;
+  }
+
+  .edit_button {
+    width: 40px;
+    height: 31px;
+    margin-right: 10px;
+  }
+  }
+
+  @media (max-width: 991.98px) {
+    /* welcome page responsive start */
+    .login_registration{
+        text-align: center!important;
+      }
+      .loginauthentication {
+        margin-top: 50px!important;
+    }
+   }
+ 

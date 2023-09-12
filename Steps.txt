@@ -11,3 +11,4 @@ php artisan db:seed --class=CreateAdminUserSeeder
 Category: https://lukasmarkevicius.com/blog/how-to-create-categories-and-subcategories-using-laravel#:~:text=The%20first%20command%20creates%20a,additional%20column%20to%20the%20table.
 
 Sub Sub Category: https://91techsquare.com/how-to-create-multilevel-category-and-subcategory-in-laravel/
+
