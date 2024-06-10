@@ -7,219 +7,144 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    function __construct()
-    {
-         $this->middleware('permission:category-list|category-create|category-edit|category-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:category-create', ['only' => ['create','store']]);
-         $this->middleware('permission:category-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:category-delete', ['only' => ['destroy']]);
-    }
-
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
+    /* @return \Illuminate\Http\Response
+    */
+   function __construct()
+   {
+       $this->middleware(['permission:category-list|category-create|category-edit|category-delete'], ['only' => ['index', 'show']]);
+       $this->middleware(['permission:category-create'], ['only' => ['create', 'store']]);
+       $this->middleware(['permission:category-edit'], ['only' => ['edit', 'update']]);
+       $this->middleware(['permission:category-delete'], ['only' => ['destroy']]);
+   }
     public function index()
     {
-        // $categories = Category::with('children')->whereNull('parent_id')->get();
-        // return view('categories.index')->with(['categories'  => $categories,]);
-
-
-        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
-        return view('categories.index', compact('categories'));
+        $categories = Category::latest()->paginate(50);
+        return view('components.categories.index', compact('categories'));
     }
+
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('components.categories.create');
     }
+
+
+    // public function uploadImage($file)
+    // {
+    //     $imageName = time() . '.' . $file->extension();
+    //     $image = Image::make($file)->resize(300, 200);
+    //     // $image->brightness (70);
+    //     $image->save(storage_path('app/public/images/') . $imageName);
+    //     return $imageName;
+    // }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        // $validatedData = $this->validate($request, [
-        //     'name'      => 'required|min:3|max:255|string',
-        //     'parent_id' => 'sometimes|nullable|numeric'
-        // ]);
-        // Category::create($validatedData);
-        // return redirect()->route('category.index')->withSuccess('You have successfully created a Category!');
+        request()->validate([
+            'cat_name' => 'required|min:3',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+        ]);
 
+        $data = [];
+        $data['cat_name'] = $request->cat_name;
 
-
-        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
-        if ($request->method() == 'GET') {
-            return view('categories.index', compact('categories'));
+        if ($request->file('image')) {
+            $rand = rand(10, 100);
+            $imageName = time() . $rand . '.' . $request->image->extension();
+            $request->image->move(public_path('/images/cat/'), $imageName);
+            $data['image'] = $imageName;
+        } else {
+            unset($data['image']);
         }
-        if ($request->method() == 'POST') {
-            $validator = $request->validate([
-                'name'      => 'required',
-                // 'slug'      => 'required|unique:categories',
-                'parent_id' => 'nullable|numeric'
-            ]);
 
-            Category::create([
-                'name' => $request->name,
-                // 'slug' => $request->slug,
-                'parent_id' => $request->parent_id
-            ]);
+        // $data['image'] = $imageName;
 
-            // return redirect()->back()->with('success', 'Category has been created successfully.');
-            return redirect()->route('category.index')->withSuccess('You have successfully created a Category!');
-        }
+
+        Category::create($data);
+
+        return redirect()->route('category.index')
+            ->withInput()->with('success', 'Created successfully.');
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        //
+         // return view('components.categories.show', compact('category'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    // public function edit($id)
-    // {
-
-    // }
-
     public function edit(Category $category)
     {
-        return view('categories.edit', compact('category'));
+        return view('components.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category, $id)
+    public function update(Request $request, Category $category)
     {
-        // $validatedData = $this->validate($request, [
-        //     'name'  => 'required|min:3|max:255|string'
-        // ]);
-        // $category->update($validatedData);
-        // return redirect()->route('category.index')->withSuccess('You have successfully updated a Category!');
+        request()->validate([
+            'cat_name' => 'required|min:3',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+        ]);
 
-        $category = Category::findOrFail($id);
-        if ($request->method() == 'GET') {
-            $categories = Category::where('parent_id', null)->where('id', '!=', $category->id)->orderby('name', 'asc')->get();
-            return view('categories.edit', compact('category', 'categories'));
+        $data = [];
+        $data['cat_name'] = $request->cat_name;
+
+        if ($request->file('image')) {
+            $rand = rand(10, 100);
+            $imageName = time() . $rand . '.' . $request->image->extension();
+            $request->image->move(public_path('/images/cat/'), $imageName);
+            $data['image'] = $imageName;
+        } else {
+            unset($data['image']);
         }
 
-        if ($request->method() == 'POST') {
-            $validator = $request->validate([
-                'name'     => 'required',
-                // 'slug' => ['required', Rule::unique('categories')->ignore($category->id)],
-                'parent_id' => 'nullable|numeric'
-            ]);
-            if ($request->name != $category->name || $request->parent_id != $category->parent_id) {
-                if (isset($request->parent_id)) {
-                    $checkDuplicate = Category::where('name', $request->name)->where('parent_id', $request->parent_id)->first();
-                    if ($checkDuplicate) {
-                        return redirect()->back()->with('error', 'Category already exist in this parent.');
-                    }
-                } else {
-                    $checkDuplicate = Category::where('name', $request->name)->where('parent_id', null)->first();
-                    if ($checkDuplicate) {
-                        return redirect()->back()->with('error', 'Category already exist with this name.');
-                    }
-                }
-            }
+        $category->update($data);
 
-            $category->name = $request->name;
-            $category->parent_id = $request->parent_id;
-            $category->save();
-            // return redirect()->back()->with('success', 'Category has been updated successfully.');
-            return redirect()->route('category.index')->withSuccess('You have successfully updated a Category!');
-        }
+        return redirect()->route('category.index')
+            ->withInput()->with('success', 'Updated successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category)
     {
-        if ($category->children) {
-            foreach ($category->children()->with('products')->get() as $child) {
-                foreach ($child->products as $product) {
-                    $product->update(['category_id' => NULL]);
-                }
-            }
-
-            $category->children()->delete();
-        }
-
-        foreach ($category->products as $product) {
-            $product->update(['category_id' => NULL]);
-        }
-
         $category->delete();
+        return redirect()->route('category.index')
+            ->with('success', ' Deleted successfully');
+    }
 
-        return redirect()->route('category.index')->withSuccess('You have successfully deleted a Category!');
+    public function trash()
+    {
+        $category = Category::latest()->onlyTrashed()->paginate(15);
+        return view('components.categories.trash', compact('category'));
+    }
+
+    public function restore($id)
+    {
+        $category = Category::onlyTrashed()->find($id);
+        $category->restore();
+        return redirect()->route('category.index')->with('success', 'Data Restored Successfully');
+    }
+
+    public function delete($id)
+    {
+        $category = Category::onlyTrashed()->find($id);
+        $category->forceDelete();
+        return redirect()->route('category.trash')->with('success', 'Data Deleted Successfully');
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-    // public function createCategory(Request $request)
-    // {
-    //     $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
-    //     if($request->method()=='GET')
-    //     {
-    //         return view('categories.create-category', compact('categories'));
-    //     }
-    //     if($request->method()=='POST')
-    //     {
-    //         $validator = $request->validate([
-    //             'name'      => 'required',
-    //             // 'slug'      => 'required|unique:categories',
-    //             'parent_id' => 'nullable|numeric'
-    //         ]);
-
-    //         Category::create([
-    //             'name' => $request->name,
-    //             // 'slug' => $request->slug,
-    //             'parent_id' =>$request->parent_id
-    //         ]);
-
-    //         return redirect()->back()->with('success', 'Category has been created successfully.');
-    //     }
-    // }

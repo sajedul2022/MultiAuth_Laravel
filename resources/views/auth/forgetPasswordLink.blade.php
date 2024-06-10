@@ -1,6 +1,7 @@
-@extends('layouts.app2')
+<x-layouts.auth>
 
-@section('content')
+    @slot('title') Forget Password Link  @endslot
+
 <main class="login-form">
   <div class="cotainer">
       <div class="row justify-content-center">
@@ -56,4 +57,4 @@
       </div>
   </div>
 </main>
-@endsection
+</x-layouts.auth>

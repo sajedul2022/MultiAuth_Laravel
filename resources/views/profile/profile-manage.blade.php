@@ -1,6 +1,7 @@
-@extends('layouts.app')
+<x-layouts.master>
 
-@section('content')
+    @slot('title') Profile Manage  @endslot
+
     <div class="container">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -60,4 +61,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-layouts.master>

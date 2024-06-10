@@ -1,6 +1,7 @@
-@extends('layouts.app')
+<x-layouts.auth>
 
-@section('content')
+    @slot('title') Varify  @endslot
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -25,4 +26,4 @@
         </div>
     </div>
 </div>
-@endsection
+</x-layouts.auth>

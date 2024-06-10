@@ -1,5 +1,7 @@
-@extends('layouts.app')
-@section('content')
+<x-layouts.master>
+
+    @slot('title') Profile Manage  @endslot
+
     <div class="container">
 
         @if ($errors->any())
@@ -73,4 +75,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-layouts.master>

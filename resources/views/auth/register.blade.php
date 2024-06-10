@@ -1,6 +1,7 @@
-@extends('layouts.app2')
+<x-layouts.auth>
 
-@section('content')
+    @slot('title') Register  @endslot
+
     <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center  form-bg-image">
         <div class="container">
 
@@ -117,4 +118,4 @@
                 </div>
             </div>
     </section>
-@endsection
+</x-layouts.auth>
