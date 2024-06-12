@@ -23,6 +23,21 @@
                         </a></span>
                     </div>
                     <ul class="navbar-nav">
+
+                        <li class="nav-item dropdown notification_dropdown">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <select class="form-control changeLang" name="" >
+                                        <option value="" selected disabled >Language</option>
+                                        <option value="en" {{ session()->get('locale') == 'en' ? 'selected' : '' }}>English</option>
+                                        <option value="bn" {{ session()->get('locale') == 'bn' ? 'selected' : '' }}>Bangla</option>
+                                        <option value="fr" {{ session()->get('locale') == 'fr' ? 'selected' : '' }}>France</option>
+                                        <option value="es" {{ session()->get('locale') == 'es' ? 'selected' : '' }}>Spanish</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+
                         <li class="nav-item dropdown notification_dropdown">
                             <a class="nav-link bell dz-theme-mode" href="javascript:void(0);">
                                 <svg id="icon-light" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" class="svg-main-icon">
@@ -72,122 +87,14 @@
                                                 </div>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-success">
-                                                    <i class="fa fa-home"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2">
-                                                    <img alt="image" width="50" src="images/avatar/1.jpg">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-danger">
-                                                    KG
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Resport created successfully</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-primary">
-                                                    <i class="fa fa-home"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2">
-                                                    <img alt="image" width="50" src="images/avatar/1.jpg">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-info">
-                                                    KG
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Resport created successfully</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-success">
-                                                    <i class="fa fa-home"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                         <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2">
-                                                    <img alt="image" width="50" src="images/avatar/1.jpg">
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-danger">
-                                                    KG
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Resport created successfully</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="timeline-panel">
-                                                <div class="media me-2 media-primary">
-                                                    <i class="fa fa-home"></i>
-                                                </div>
-                                                <div class="media-body">
-                                                    <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                    <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                                </div>
-                                            </div>
-                                        </li>
+
                                     </ul>
                                 </div>
                                 <a class="all-notification" href="javascript:void(0);">See all notifications <i class="ti-arrow-end"></i></a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown notification_dropdown">
+
+                        {{-- <li class="nav-item dropdown notification_dropdown">
                             <a class="nav-link bell-link" href="javascript:void(0);">
                             <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0_1_463)">
@@ -265,13 +172,15 @@
                                     </ul>
                                 </div>
                             </div>
-                        </li>
+                        </li> --}}
+
+
                         <li class="nav-item ps-3">
                             <div class="dropdown header-profile2">
                                 <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="header-info2 d-flex align-items-center">
                                         <div class="header-media">
-                                            <img class="avatar avatar-md" src="{{asset('/master/images/user.png')}}" alt="user" width="30" >
+                                            <img class=" avatar-md" src="{{asset('/master/images/user.png')}}" alt="user" width="30" >
                                         </div>
                                     </div>
                                 </a>

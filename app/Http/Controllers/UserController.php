@@ -63,10 +63,12 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
             'roles' => 'required'
+
         ]);
 
         $input = $request->all();
         $input['password'] = FacadesHash::make($input['password']);
+        $input['type'] = $request->type;
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));

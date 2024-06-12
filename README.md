@@ -1,11 +1,28 @@
-# MultiAuth Laravel with category and Sub category 
-1. composer install
-2. php artisan key:generate
-3. php artisan migrate:fresh --seed
-4. php artisan db:seed --class=PermissionTableSeeder
-5. php artisan db:seed --class=CreateAdminUserSeeder
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Steps: fresh: 
+```bash 
+composer update
+php artisan key:generate
+php artisan migrate:fresh --seed
 
+npm install
+npm run dev
+```
+
+# Steps: Git push & Merge: 
+
+# Contributor: 
+
+```bash 
+git switch branchname
+```
+ ```bash 
+git add .
+Git commit -m " First commit "
+git push -u origin branchname
+```
+
+            
+# Admin: 
+pull Request and compare -> compare then create pull request -> merge and confirm merge

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -7,12 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title> {{ $title }} </title>
-    <title>  </title>
+    {{-- <title>  </title> --}}
 
     <!-- Style css -->
     <link href="{{asset('master/css/style.css')}}" rel="stylesheet">
-    <link href="{{asset('master/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
+    {{-- <link href="{{asset('master/vendor/bootstrap-select/dist/css/bootstrap-select.min.css')}}" rel="stylesheet"> --}}
     <script src="https://kit.fontawesome.com/60cd01b8da.js" crossorigin="anonymous"></script>
+
+    {{-- Multilanguage --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     @stack('styles')
 
@@ -28,7 +31,10 @@
 
         <div class="content-body">
 			<div class="container-fluid">
+
+                <h1 class="text-center mt-5"> {{ __('messages.title') }} </h1>
 				{{$slot}}
+
 			</div>
         </div>
 
@@ -50,7 +56,17 @@
     <script src="{{asset('master/js/custom.js')}}"></script>
 	<script src="{{asset('master/js/deznav-init.js')}}"></script>
 	<script src="{{asset('master/js/demo.js')}}"></script>
-    <script src="{{asset('master/js/styleSwitcher.js')}}"></script>
+    {{-- <script src="{{asset('master/js/styleSwitcher.js')}}"></script> --}}
+
+    {{-- Multilanguage --}}
+
+    <script type="text/javascript">
+        var url = "{{ route('change.lang') }}";
+
+        $(".changeLang").change(function() {
+            window.location.href = url + "?lang=" + $(this).val();
+        });
+    </script>
 
 
     @stack('scripts')

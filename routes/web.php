@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ChildcatController;
+use App\Http\Controllers\LangController;
 use App\Http\Controllers\SubchildcatController;
 use App\Http\Controllers\PackageController;
 
@@ -42,13 +43,15 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 Auth::routes();
 
-Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
-Route::get('/dashboard', function () {
-    return view('components.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::get('/dashboard', function () {
+//     return view('components.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
     // profile manage
     Route::get('/profile-manage', [HomeController::class, 'profileUpdateShow'])->name('profile.edit');
@@ -65,7 +68,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/pertrash',[PermissionController::class, 'pertrash'])->name('permission.trash');
     Route::patch('permission/{id}/restore', [PermissionController::class, 'restore'])->name('permission.restore');
     Route::delete('permission/{id}/delete', [PermissionController::class, 'delete'])->name('permission.delete');
-
 
 
     Route::resource('category', CategoryController::class);
@@ -94,5 +96,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/pkgtrash',[PackageController::class, 'pkgtrash'])->name('package.trash');
     Route::patch('package/{id}/restore', [PackageController::class, 'restore'])->name('package.restore');
     Route::delete('package/{id}/delete', [PackageController::class, 'delete'])->name('package.delete');
+
+    Route::get('lang/change', [LangController::class, 'change'])->name('change.lang');
 
 });

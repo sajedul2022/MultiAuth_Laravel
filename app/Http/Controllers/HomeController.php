@@ -27,7 +27,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('components.dashboard');
+
+        $type = session('type');
+        $type = auth()->user()->type;
+
+        if ($type === 0) {
+            return view('components.dashboard');
+            // return include('./../../frontend/src/pages/Home.jsx');
+        }
+        if ($type === 1) {
+            return view('components.userdash');
+        }
+
     }
 
     // profile Manage
