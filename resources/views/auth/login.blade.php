@@ -2,6 +2,7 @@
 
 
 
+
     <div class="authincation h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -9,12 +10,24 @@
                     <div class="authincation-content">
                         <div class="row no-gutters">
                             <div class="col-xl-12">
+
+
                                 <div class="auth-form">
                                     <div class="text-center mb-3">
-                                        <a href="{{ url('/') }}"><img
-                                                src="{{ asset('/master/images/logo.jpeg') }}"
+                                        <a href="{{ url('/') }}"><img src="{{ asset('/master/images/logo.jpeg') }}"
                                                 alt="Logo"></a>
                                     </div>
+
+                                    @if (count($errors) > 0)
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+
                                     <h4 class="text-center mb-4">Login</h4>
                                     <form method="POST" action="{{ route('login') }}">
                                         @csrf
@@ -24,9 +37,12 @@
                                             <input type="email" class="form-control" name="email"
                                                 placeholder="hello@example.com" autofocus required>
 
-                                            @error('email')
-                                                <div wire:key="form" class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
+
+                                            <span class="text-danger">
+                                                @error('email')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password</strong></label>
@@ -34,9 +50,11 @@
                                                 name="password" required>
 
 
-                                            @error('password')
-                                                <div class="invalid-feedback"> {{ $message }} </div>
-                                            @enderror
+                                            <span class="text-danger">
+                                                @error('password')
+                                                    {{ $message }}
+                                                @enderror
+                                            </span>
 
                                         </div>
                                         <div class="text-center mt-4">
@@ -45,8 +63,9 @@
                                     </form>
 
                                     <div class="new-account mt-3">
-                                            <a href="{{ route('forget.password.get') }}" class="small text-right">Lost/Reset password
-                                            </a>
+                                        <a href="{{ route('forget.password.get') }}" class="small text-right">Lost/Reset
+                                            password
+                                        </a>
                                     </div>
                                 </div>
                             </div>
