@@ -1,8 +1,6 @@
 <x-layouts.auth>
 
 
-
-
     <div class="authincation h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100 align-items-center">
@@ -18,13 +16,25 @@
                                                 alt="Logo"></a>
                                     </div>
 
-                                    @if (count($errors) > 0)
+                                    {{-- @if (count($errors) > 0)
                                         <div class="alert alert-danger">
                                             <ul>
                                                 @foreach ($errors->all() as $error)
                                                     <li>{{ $error }}</li>
                                                 @endforeach
                                             </ul>
+                                        </div>
+                                    @endif --}}
+
+                                    @if (Session::has('message'))
+                                        <div class="alert alert-success"> {{ Session::get('message') }} </div>
+                                    @endif
+
+                                    @if (Session::has('errors'))
+                                        <div class="alert alert-danger">
+                                            @foreach ($errors->all() as $error)
+                                                {{ $error }}<br />
+                                            @endforeach
                                         </div>
                                     @endif
 

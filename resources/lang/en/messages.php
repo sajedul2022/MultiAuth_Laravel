@@ -2,6 +2,6 @@
 
 return [
 
-    'title' => 'Welcome!',
+    'title' => 'Welcome To HR Lounge!',
 
 ];

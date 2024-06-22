@@ -43,13 +43,7 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 Auth::routes();
 
-
-
-// Route::get('/dashboard', function () {
-//     return view('components.dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'checkstatus']], function () {
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
 
@@ -62,7 +56,18 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::resource('roles', RoleController::class);
+    Route::get('/roletrash',[RoleController::class, 'roletrash'])->name('roles.trash');
+    Route::patch('role/{id}/restore', [RoleController::class, 'restore'])->name('roles.restore');
+    Route::delete('role/{id}/delete', [RoleController::class, 'delete'])->name('roles.delete');
+
+
     Route::resource('users', UserController::class);
+    Route::get('/usertrash',[UserController::class, 'usertrash'])->name('users.trash');
+    Route::patch('user/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
+    Route::delete('user/{id}/delete', [UserController::class, 'delete'])->name('users.delete');
+    Route::put('/changeStatus/{id}', [UserController::class, 'changeStatus'])->name('changeStatus');
+
+    // permission
 
     Route::resource('permission', PermissionController::class);
     Route::get('/pertrash',[PermissionController::class, 'pertrash'])->name('permission.trash');

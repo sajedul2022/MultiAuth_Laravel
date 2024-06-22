@@ -2,6 +2,6 @@
 
 return [
 
-    'title' => 'Bienvenue au salon!',
+    'title' => 'Bienvenue au salon RH !',
 
 ];

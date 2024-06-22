@@ -13,17 +13,12 @@
                             <a class="btn btn-success" href="{{ route('category.create') }}"> Create New </a>
                         @endcan
 
-                        {{-- @can('category-trash')
-                            <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
-                        @endcan --}}
-
                         <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
                     </div>
                 </h2>
             </div>
         </div>
     </div>
-
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">

@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class SubchildcatController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['permission:subchildcat-list|subchildcat-create|subchildcat-edit|subchildcat-delete'], ['only' => ['index', 'show']]);
+        $this->middleware(['permission:subchildcat-create'], ['only' => ['create', 'store']]);
+        $this->middleware(['permission:subchildcat-edit'], ['only' => ['edit', 'update']]);
+        $this->middleware(['permission:subchildcat-delete'], ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      */

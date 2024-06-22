@@ -9,16 +9,8 @@
             <div class="pull-left">
                 <h2>Package Trash</h2>
             </div>
-
             <div class="float-end">
-
-                {{-- @can('category-trash')
-                    <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
-                @endcan --}}
-
                 <a class="btn btn-primary" href="{{ route('package.index') }}"> Index List </a>
-
-
             </div>
         </div>
     </div>
@@ -34,8 +26,6 @@
         <tr>
             <th>Name</th>
             <th>Price</th>
-            {{-- <th>Purchase Date</th>
-            <th>Expire Date</th> --}}
             <th>Duration</th>
             <th>Status</th>
             <th width="280px">Action</th>
@@ -44,34 +34,23 @@
             <tr>
                 <td>{{ $package->package_name }}</td>
                 <td>{{ $package->package_price }}</td>
-                {{-- <td>{{ $package->purchase_date }}</td>
-                <td>{{ $package->expire_date }}</td> --}}
                 <td>{{ $package->package_duration }}</td>
                 <td>{{ $package->status }}</td>
                 <td>
                     <form action="{{ route('package.restore', $package->id) }}" method="POST">
                         @csrf
                         @method('patch')
-
-                        {{-- @can('category-trash')
-                            <button type="submit" class="btn btn-warning" onclick="return confirm('Do you want to restore?')">Restore</button>
-                        @endcan --}}
-
                         <button type="submit" class="btn btn-warning" onclick="return confirm('Do you want to restore?')">Restore</button>
-
-
                     </form>
 
                     <form action="{{ route('package.delete', $package->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
 
-                        {{-- @can('childcat-delete') --}}
+                        @can('package-delete')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to Delete?')" >Delete</button>
-                        {{-- @endcan --}}
+                        @endcan
                     </form>
-
-
                 </td>
             </tr>
         @endforeach

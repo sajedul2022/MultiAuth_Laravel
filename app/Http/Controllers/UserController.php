@@ -149,4 +149,45 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');
     }
+
+
+    // Active, deactive
+
+    public function changeStatus(Request $request, $id)
+    {
+        // $user = User::find($request->user_id);
+        // $user->status = $request->status;
+        // $user->save();
+
+        // return response()->json(['success'=>'Status change successfully.']);
+
+        $input['status'] = $request->status ? $request->status : 0;
+        $user = User::find($id);
+        $user->update($input);
+        return redirect()->route('users.index')
+        ->with('success','Update Successfully');
+    }
+
+    public function usertrash()
+    {
+        $user = User::latest()->onlyTrashed()->paginate(15);
+        return view('components.users.trash', compact('user'));
+    }
+
+    public function restore($id)
+    {
+        $user = User::onlyTrashed()->find($id);
+        $user->restore();
+        return redirect()->route('users.index')->with('success', 'Data Restored Successfully');
+    }
+
+    public function delete($id)
+    {
+        $user = User::onlyTrashed()->find($id);
+        $user->forceDelete();
+        return redirect()->route('users.trash')->with('success', 'Data Deleted Successfully');
+    }
+
+
+
 }

@@ -9,21 +9,14 @@
             <div class="pull-left">
                 <h2>All Permissions
                     <div class="float-end">
-                        {{-- @can('childcat-create') --}}
+                        @can('permission-create')
                         <a class="btn btn-success" href="{{ route('permission.create') }}"> Create New </a>
-                        {{-- @endcan --}}
-
-                        {{-- @can('category-trash')
-                            <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
-                        @endcan --}}
+                        @endcan
 
                         <a class="btn btn-primary" href="{{ route('permission.trash') }}"> Trash List </a>
                     </div>
                 </h2>
             </div>
-
-
-
         </div>
     </div>
 
@@ -51,11 +44,11 @@
 
                             @csrf
                             @method('DELETE')
-                            {{-- @can('childcat-delete') --}}
+                            @can('permission-delete')
                             <button type="submit" class="btn btn-danger"
                                 onclick="return confirm('Do you want to Delete?')"><i class="fa fa-trash"
                                     aria-hidden="true"></i>Delete</button>
-                            {{-- @endcan --}}
+                            @endcan
                         </form>
                     </td>
                 </tr>

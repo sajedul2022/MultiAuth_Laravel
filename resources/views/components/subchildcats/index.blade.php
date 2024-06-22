@@ -9,9 +9,9 @@
             <div class="pull-left">
                 <h2>Sub-Child-Category
                     <div class="float-end">
-                        {{-- @can('childcat-create') --}}
+                        @can('childcat-create')
                         <a class="btn btn-success" href="{{ route('subchildcat.create') }}"> Create New </a>
-                        {{-- @endcan --}}
+                        @endcan
 
                         {{-- @can('category-trash')
                             <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>

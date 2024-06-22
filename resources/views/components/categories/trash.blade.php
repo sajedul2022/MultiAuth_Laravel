@@ -11,18 +11,10 @@
             </div>
 
             <div class="float-end">
-
-                {{-- @can('category-trash')
-                    <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
-                @endcan --}}
-
                 <a class="btn btn-primary" href="{{ route('category.index') }}"> Index List </a>
-
-
             </div>
         </div>
     </div>
-
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -50,19 +42,10 @@
                 </td>
                 <td>{{ $cat->status }}</td>
                 <td>
-
-
                     <form action="{{ route('category.restore', $cat->id) }}" method="POST">
                         @csrf
                         @method('patch')
-
-                        {{-- @can('category-trash')
-                            <button type="submit" class="btn btn-warning" onclick="return confirm('Do you want to restore?')">Restore</button>
-                        @endcan --}}
-
                         <button type="submit" class="btn btn-warning" onclick="return confirm('Do you want to restore?')">Restore</button>
-
-
                     </form>
 
                     <form action="{{ route('category.delete', $cat->id) }}" method="POST">
@@ -73,8 +56,6 @@
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to Delete?')" >Delete</button>
                         @endcan
                     </form>
-
-
                 </td>
             </tr>
         @endforeach

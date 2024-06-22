@@ -9,23 +9,14 @@
             <div class="pull-left">
                 <h2>All Packages
                     <div class="float-end">
-                        {{-- @can('childcat-create') --}}
-                        <a class="btn btn-success" href="{{ route('package.create') }}"> Create New </a>
-                        {{-- @endcan --}}
-
-                        {{-- @can('category-trash')
-                            <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
-                        @endcan --}}
+                        @can('package-create')
+                            <a class="btn btn-success" href="{{ route('package.create') }}"> Create New </a>
+                        @endcan
 
                         <a class="btn btn-primary" href="{{ route('package.trash') }}"> Trash List </a>
-
-
                     </div>
                 </h2>
             </div>
-
-
-
         </div>
     </div>
 
@@ -58,16 +49,18 @@
                     <td>
                         <form action="{{ route('package.destroy', $package->id) }}" method="POST">
 
-                            <a class="btn btn-primary" href="{{ route('package.edit', $package->id) }}"><i
-                                    class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+                            @can('package-edit')
+                                <a class="btn btn-primary" href="{{ route('package.edit', $package->id) }}"><i
+                                        class="fa fa-pencil-square-o" aria-hidden="true"></i>Edit</a>
+                            @endcan
 
                             @csrf
                             @method('DELETE')
-                            {{-- @can('childcat-delete') --}}
-                            <button type="submit" class="btn btn-danger"
-                                onclick="return confirm('Do you want to Delete?')"><i class="fa fa-trash"
-                                    aria-hidden="true"></i>Delete</button>
-                            {{-- @endcan --}}
+                            @can('package-delete')
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Do you want to Delete?')"><i class="fa fa-trash"
+                                        aria-hidden="true"></i>Delete</button>
+                            @endcan
                         </form>
                     </td>
                 </tr>

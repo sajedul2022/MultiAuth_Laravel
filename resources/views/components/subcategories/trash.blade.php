@@ -9,20 +9,11 @@
             <div class="pull-left">
                 <h2>Subcategory Trash</h2>
             </div>
-
             <div class="float-end">
-
-                {{-- @can('category-trash')
-                    <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
-                @endcan --}}
-
                 <a class="btn btn-primary" href="{{ route('subcategory.index') }}"> Index List </a>
-
-
             </div>
         </div>
     </div>
-
 
     @if ($message = Session::get('success'))
         <div class="alert alert-success">

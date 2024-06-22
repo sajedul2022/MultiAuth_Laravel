@@ -11,14 +11,7 @@
             </div>
 
             <div class="float-end">
-
-                {{-- @can('category-trash')
-                    <a class="btn btn-primary" href="{{ route('category.trash') }}"> Trash List </a>
-                @endcan --}}
-
                 <a class="btn btn-primary" href="{{ route('permission.index') }}"> Index List </a>
-
-
             </div>
         </div>
     </div>
@@ -43,22 +36,16 @@
                         @csrf
                         @method('patch')
 
-                        {{-- @can('category-trash')
-                            <button type="submit" class="btn btn-warning" onclick="return confirm('Do you want to restore?')">Restore</button>
-                        @endcan --}}
-
                         <button type="submit" class="btn btn-warning" onclick="return confirm('Do you want to restore?')">Restore</button>
-
-
                     </form>
 
                     <form action="{{ route('permission.delete', $permission->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
 
-                        {{-- @can('childcat-delete') --}}
+                        @can('permission-delete')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Do you want to Delete?')" >Delete</button>
-                        {{-- @endcan --}}
+                        @endcan
                     </form>
                 </td>
             </tr>
