@@ -66,14 +66,16 @@
                             @endforeach
                         </div> --}}
 
+                        <input type="hidden" name="type" value="1">
+
                         <div class="col-xs-12 mb-2 ">
-                            <div class="float-end">
+                            <div class="text-center">
                                 <button type="submit" class=" btn btn-primary">Submit</button>
                             </div>
                         </div>
                     </div>
                     {!! Form::close() !!}
-                    <p class="text-center text-primary"><small>A & A Consulting Ltd.</small></p>
+
                 </div>
             </div>
         </div>

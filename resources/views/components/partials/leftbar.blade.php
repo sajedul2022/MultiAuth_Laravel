@@ -49,6 +49,7 @@
                 </li>
             @endcan
 
+
             @can('user-list')
                 <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
                         <div class="menu-icon">

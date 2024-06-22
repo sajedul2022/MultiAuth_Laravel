@@ -19,14 +19,6 @@ class CreateAdminUserSeeder extends Seeder
     public function run()
     {
 
-        // Normal User
-
-        User::create([
-            'name' => 'User',
-            'email' => 'user@gmail.com',
-            'password' => bcrypt('user@gmail.com'),
-            'type' => 1
-        ]);
 
         //Admin Seeder
         $user = User::create([
@@ -43,5 +35,14 @@ class CreateAdminUserSeeder extends Seeder
         $role->syncPermissions($permissions);
 
         $user->assignRole([$role->id]);
+
+        // Normal User
+
+        User::create([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password' => bcrypt('user@gmail.com'),
+            'type' => 1
+        ]);
     }
 }

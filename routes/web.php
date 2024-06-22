@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth', 'checkstatus']], function () {
     Route::patch('user/{id}/restore', [UserController::class, 'restore'])->name('users.restore');
     Route::delete('user/{id}/delete', [UserController::class, 'delete'])->name('users.delete');
     Route::put('/changeStatus/{id}', [UserController::class, 'changeStatus'])->name('changeStatus');
+    Route::get('/mark-as-read', [UserController::class, 'markAsRead'])->name('mark-as-read');
+
 
     // permission
 

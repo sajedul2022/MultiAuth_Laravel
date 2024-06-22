@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\WelcomeMail;
 use App\Models\User;
+use App\Notifications\NewNotification;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use Illuminate\Notifications\Notification;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash as FacadesHash;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -21,10 +26,12 @@ class UserController extends Controller
 
     function __construct()
     {
-         $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
-         $this->middleware('permission:user-create', ['only' => ['create','store']]);
-         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('auth');
+
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -34,8 +41,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
-        return view('components.users.index',compact('data'))
+        $data = User::orderBy('id', 'DESC')->paginate(5);
+        return view('components.users.index', compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -46,8 +53,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::pluck('name','name')->all();
-        return view('components.users.create',compact('roles'));
+        $roles = Role::pluck('name', 'name')->all();
+        return view('components.users.create', compact('roles'));
     }
 
     /**
@@ -58,6 +65,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -68,14 +76,39 @@ class UserController extends Controller
 
         $input = $request->all();
         $input['password'] = FacadesHash::make($input['password']);
-        $input['type'] = $request->type;
+        $input['type'] = $request->type ?? 2;
 
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
+        // send mail
+
+        $urlLink = $request->root();
+        $user = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+            'link' => $urlLink,
+        ];
+        $email = $request->email;
+        Mail::to($email)->send(new WelcomeMail($user));
+
+
+        // Notification
+
+        $datas = $request->email;
+        User::find(Auth::user()->id)->notify(new NewNotification($datas));
+
         return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+            ->with('success', 'User created successfully');
     }
+
+    public function markAsRead()
+    {
+        Auth::user()->unreadNotifications->markAsRead();
+        return redirect()->back();
+    }
+
 
     /**
      * Display the specified resource.
@@ -86,7 +119,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('components.users.show',compact('user'));
+        return view('components.users.show', compact('user'));
     }
 
     /**
@@ -98,10 +131,10 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $roles = Role::pluck('name','name')->all();
-        $userRole = $user->roles->pluck('name','name')->all();
+        $roles = Role::pluck('name', 'name')->all();
+        $userRole = $user->roles->pluck('name', 'name')->all();
 
-        return view('components.users.edit',compact('user','roles','userRole'));
+        return view('components.users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -115,26 +148,26 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
-        if(!empty($input['password'])){
+        if (!empty($input['password'])) {
             $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = Arr::except($input,array('password'));
+        } else {
+            $input = Arr::except($input, array('password'));
         }
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        DB::table('model_has_roles')->where('model_id', $id)->delete();
 
         $user->assignRole($request->input('roles'));
 
         return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+            ->with('success', 'User updated successfully');
     }
 
     /**
@@ -147,7 +180,7 @@ class UserController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+            ->with('success', 'User deleted successfully');
     }
 
 
@@ -155,17 +188,12 @@ class UserController extends Controller
 
     public function changeStatus(Request $request, $id)
     {
-        // $user = User::find($request->user_id);
-        // $user->status = $request->status;
-        // $user->save();
-
-        // return response()->json(['success'=>'Status change successfully.']);
 
         $input['status'] = $request->status ? $request->status : 0;
         $user = User::find($id);
         $user->update($input);
         return redirect()->route('users.index')
-        ->with('success','Update Successfully');
+            ->with('success', 'Update Successfully');
     }
 
     public function usertrash()
@@ -185,9 +213,12 @@ class UserController extends Controller
     {
         $user = User::onlyTrashed()->find($id);
         $user->forceDelete();
+
+        // $dataDelete = "User Deleted.";
+        // User::find(Auth::user()->id)->notify(new NewNotification($dataDelete));
+
         return redirect()->route('users.trash')->with('success', 'Data Deleted Successfully');
     }
-
 
 
 }
